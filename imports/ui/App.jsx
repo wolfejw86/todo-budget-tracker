@@ -1,19 +1,77 @@
-import React from "react";
-import { Task } from "./Task.jsx";
-import Tasks from "../api/tasks";
+import React, { useContext } from "react";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  NavLink,
+} from "react-router-dom";
+import { Hello } from "./Hello";
+import { List } from "./List";
+import { Signup } from "./pages/Signup";
+import { Login } from "./pages/Login";
+import { UserProvider, UserContext } from "./contexts/UserContext";
+import { Logout } from "./pages/Logout";
+import { Family } from "./pages/Family";
 
-import { useTracker } from "meteor/react-meteor-data";
+const Routing = () => {
+  const { user, getEmail, family } = useContext(UserContext);
+
+  return (
+    <Router>
+      <div>
+        <header>
+          <nav>
+            <ul>
+              <li>
+                <NavLink to="/">Dashboard</NavLink>
+              </li>
+              {user && (
+                <li>
+                  <NavLink to="/family">Manage Family</NavLink>
+                </li>
+              )}
+              <li>
+                <NavLink to="/tasks">Todo Lists</NavLink>
+              </li>
+              {!user && (
+                <li>
+                  <NavLink to="/signup">Signup</NavLink>
+                </li>
+              )}
+              {!user && (
+                <li>
+                  <NavLink to="/login">Login</NavLink>
+                </li>
+              )}
+              {user && (
+                <li>
+                  <NavLink to="/logout">Logout</NavLink>
+                </li>
+              )}
+            </ul>
+            {user && <div>{getEmail()}</div>}
+            {family && <div>{family.name}</div>}
+          </nav>
+        </header>
+        <Switch>
+          <Route exact path="/" component={Hello} />
+          <Route exact path="/tasks" component={List} />
+          <Route exact path="/signup" component={Signup} />
+          <Route exact path="/login" component={Login} />
+          <Route exact path="/logout" component={Logout} />
+          <Route exact path="/family" component={Family} />
+        </Switch>
+      </div>
+    </Router>
+  );
+};
 
 export const App = () => {
-  const tasks = useTracker(() => Tasks.find({}).fetch());
   return (
     <div>
-      <h1>Welcome to Meteor!</h1>
-      <ul>
-        {tasks.map((t, i) => (
-          <Task key={i} task={t} />
-        ))}
-      </ul>
+      <UserProvider>
+        <Routing />
+      </UserProvider>
     </div>
   );
 };
