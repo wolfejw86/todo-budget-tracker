@@ -18,7 +18,6 @@ FamilyCollection.attachSchema(familySchema);
 
 
 if (Meteor.isServer) {
-
   Meteor.methods({
     'family.create': function createFamily(name) {
 
@@ -34,11 +33,14 @@ if (Meteor.isServer) {
 
       FamilyCollection.insert(family);
     },
-    'family.get': async function () {
-      if (Meteor.isClient) {
-        return
+    'family.getOwn': function (projection = {}) {
+      if (!this.userId) {
+        throw Meteor.Error('Must be logged in to complete this operation');
       }
 
+      return FamilyCollection.findOne({ members: this.userId }, { fields: projection });
+    },
+    'family.get': async function () {
       if (!this.userId) {
         throw Meteor.Error('Must be logged in to complete this operation');
       }
