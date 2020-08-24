@@ -1,9 +1,7 @@
 module.exports = {
-  purge: [
-    './client/**/*.html',
-    './client/**/*.vue',
-    './client/**/*.jsx',
-  ],
+  purge: {
+    enabled: false
+  },
   theme: {},
   variants: {},
   plugins: [],

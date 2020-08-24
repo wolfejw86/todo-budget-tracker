@@ -1,26 +1,9 @@
-module.exports = (ctx) => {
-  // This flag is set when loading configuration by this package.
-  if (ctx.meteor) {
-    const config = {
-      plugins: {
-        'tailwindcss': {},
-        'autoprefixer': {}
-      },
-    };
+const path = require("path");
 
-    if (ctx.env === 'production') {
-      // "autoprefixer" is reported to be slow,
-      // so we use it only in production.
-      config.plugins.autoprefixer = {
-        browsers: [
-          'defaults',
-        ],
-      };
-    }
-
-    return config;
-  }
-  else {
-    return {};
-  }
+module.exports = {
+  plugins: [
+    require('postcss-import'),
+    require("tailwindcss")(path.join(__dirname, "tailwind.config.js")),
+    require("autoprefixer"),
+  ],
 };
