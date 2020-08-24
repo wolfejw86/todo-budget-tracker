@@ -16,6 +16,7 @@ RUN bash $SCRIPTS_FOLDER/build-meteor-bundle.sh
 FROM node:12.18.3-alpine
 
 EXPOSE 3000
+EXPOSE 80
 
 ENV APP_BUNDLE_FOLDER /opt/bundle
 ENV SCRIPTS_FOLDER /docker
