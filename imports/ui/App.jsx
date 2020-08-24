@@ -6,12 +6,12 @@ import {
   NavLink,
 } from "react-router-dom";
 import { Hello } from "./Hello";
-import { List } from "./List";
 import { Signup } from "./pages/Signup";
 import { Login } from "./pages/Login";
 import { UserProvider, UserContext } from "./contexts/UserContext";
 import { Logout } from "./pages/Logout";
 import { Family } from "./pages/Family";
+import { ListsPage } from "./pages/Lists/ListsPage";
 
 const Routing = () => {
   const { user, getEmail, family } = useContext(UserContext);
@@ -55,7 +55,7 @@ const Routing = () => {
         </header>
         <Switch>
           <Route exact path="/" component={Hello} />
-          <Route exact path="/tasks" component={List} />
+          <Route exact path="/tasks" component={ListsPage} />
           <Route exact path="/signup" component={Signup} />
           <Route exact path="/login" component={Login} />
           <Route exact path="/logout" component={Logout} />

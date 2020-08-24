@@ -15,7 +15,7 @@ export const Login = () => {
     if (currentUser) {
       setRedirect(true);
     }
-  }, [currentUser, setRedirect]);
+  }, [currentUser]);
 
   const handleLogin = (e) => {
     e.preventDefault();

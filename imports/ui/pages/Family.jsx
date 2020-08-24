@@ -9,7 +9,7 @@ const familyAggregate = new Mongo.Collection("family-aggregate");
 export const Family = () => {
   const [name, setName] = useState("");
 
-  const { family, familyMembers } = useContext(UserContext);
+  const { family, familyMembers, createFamily } = useContext(UserContext);
 
   return family ? (
     <div>
@@ -30,7 +30,7 @@ export const Family = () => {
         className="flex flex-col justify-center align-items"
         onSubmit={(e) => {
           e.preventDefault();
-          uc.createFamily(name);
+          createFamily(name);
         }}
       >
         <h1 className="m-10 text-lg">Create A Family</h1>

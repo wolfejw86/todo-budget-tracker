@@ -1,4 +1,3 @@
-
 module.exports = {
   purge: [
     './client/**/*.html',
@@ -10,5 +9,5 @@ module.exports = {
   plugins: [],
   future: {
     removeDeprecatedGapUtilities: true,
-  }
-}
+  },
+};
