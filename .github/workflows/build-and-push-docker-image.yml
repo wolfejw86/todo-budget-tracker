@@ -17,11 +17,11 @@ jobs:
       - run: docker build -t wolfejw86/family-tracker-app:${{github.sha}} .
       - run: docker push wolfejw86/family-tracker-app:${{github.sha}}
       - uses: azure/login@v1
-          with:
-            creds: ${{ secrets.AZURE_CREDENTIALS }}
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
       - uses: azure/webapps-container-deploy@v1
         with:
-          app-name: 'family-tracker'
-          images: 'wolfejw86/family-tracker-app:${{github.sha}}'
+          app-name: "family-tracker"
+          images: "wolfejw86/family-tracker-app:${{github.sha}}"
       - name: Azure logout
         run: az logout
